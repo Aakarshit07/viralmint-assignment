@@ -18,6 +18,7 @@ const App: React.FC = () => {
         <Route path="/signin" element={<SignIn />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/blogs" element={<BlogList />} />
+          <Route path="/blogs/:blogId" element={<BlogList />} />
           <Route path="/blogs/create" element={<CreateBlog />} />
           <Route path="/blogs/edit/:blogId" element={<EditBlog />} /> 
         </Route>

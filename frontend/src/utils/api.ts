@@ -28,10 +28,15 @@ export interface BlogData {
 // Authentication APIs
 export const signup = (userData: AuthData) => api.post('/auth/signup', {...userData, name: "DAN-DA-DAN"});
 export const signin = (userData: AuthData) => api.post('/auth/signin', userData);
+export const logout = () => {
+  localStorage.removeItem('token');
+  window.location.href = '/';
+};
+
 
 // Blog APIs
 export const getBlogs = () => api.get('/blogs');
-export const getBlogDetails = (blogId: string) => api.get(`/blogs/${blogId}`);
+export const getBlogDetails = (blogId: string) => api.get(`/blogs/:${blogId}`);
 
 export const createBlog = (blogData: BlogData) => {
   const token = localStorage.getItem('token');
@@ -44,26 +49,18 @@ export const createBlog = (blogData: BlogData) => {
 
 export const updateBlog = (blogId: string, blogData: BlogData) => {
   const token = localStorage.getItem('token');
-  return api.put(`/blogs/${blogId}`, blogData, {
+  return api.put(`/blogs/:${blogId}`, blogData, {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `${token}`,
     },
   });
 };
 
-// Delete a blog
 export const deleteBlog = (blogId: string) => {
   const token = localStorage.getItem('token');
-  return api.delete(`/blogs/${blogId}`, {
+  return api.delete(`/blogs/:${blogId}`, {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `${token}`,
     },
   });
-};
-
-
-// logout 
-export const logout = () => {
-  localStorage.removeItem('token');
-  window.location.href = '/';
 };

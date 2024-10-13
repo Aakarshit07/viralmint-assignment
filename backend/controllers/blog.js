@@ -20,6 +20,7 @@ exports.getBlogById = async (req, res) => {
   }
 };
 
+
 exports.createBlog = async (req, res) => {
   const { title, image, content, subheading, labels, location } = req.body;
   try {
