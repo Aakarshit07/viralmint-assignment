@@ -24,7 +24,7 @@ exports.createBlog = async (req, res) => {
   const { title, image, content, subheading, labels, location } = req.body;
   try {
     const user = await User.findById(req.user.id);
-    if (!user.isPaymentVerified) return res.status(400).json({ message: 'Payment not verified' });
+    // if (!user.isPaymentVerified) return res.status(400).json({ message: 'Payment not verified' });
 
     const newBlog = new Blog({
       title,

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = '/api'; // This will be proxied to your backend
+const API_URL = 'https://viralmint-assignment.onrender.com/api';
 export const api = axios.create({
   baseURL: API_URL,
   headers: {
@@ -23,7 +23,7 @@ export interface BlogData {
 }
 
 // Authentication APIs
-export const signup = (userData: AuthData) => api.post('/auth/signup', {...userData, name: "hello"});
+export const signup = (userData: AuthData) => api.post('/auth/signup', {...userData, name: "DAN-DA-DAN"});
 export const signin = (userData: AuthData) => api.post('/auth/signin', userData);
 
 // Blog APIs
