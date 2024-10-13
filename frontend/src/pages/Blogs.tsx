@@ -7,31 +7,48 @@ interface Blog {
   title: string;
   content: string;
   image: string;
+  location: string; // Assuming each blog has a location property
 }
 
 const BlogList: React.FC = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
-  const navigate =  useNavigate();
+  const [filteredBlogs, setFilteredBlogs] = useState<Blog[]>([]);
+  const [selectedLocation, setSelectedLocation] = useState<string>(''); 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchBlogs = async () => {
       const res = await getBlogs();
-      console.log(res)
+      console.log(res);
       setBlogs(res.data);
+      setFilteredBlogs(res.data); 
     };
     fetchBlogs();
   }, []);
 
-  const handleCreateBlog = ( ) => {
-    navigate('/blogs/create')
-  }
+  const handleCreateBlog = () => {
+    navigate('/blogs/create');
+  };
 
   const handleLogout = () => {
     logout();
   };
 
-  const handleBlogDetails  = (id: string) => {
-    navigate(`/blogs/${id}`)
-  }
+  const handleBlogDetails = (id: string) => {
+    navigate(`/blogs/${id}`);
+  };
+
+  const handleLocationFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const location = event.target.value;
+    setSelectedLocation(location);
+
+    if (location) {
+      const filtered = blogs.filter((blog) => blog.location.toLowerCase() === location.toLowerCase());
+      setFilteredBlogs(filtered);
+    } else {
+      setFilteredBlogs(blogs);
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -49,12 +66,28 @@ const BlogList: React.FC = () => {
         >
           Logout
         </button>
-        
+        <select
+          value={selectedLocation}
+          onChange={handleLocationFilterChange}
+          className='border rounded-md p-2'
+        >
+          <option value="">All Locations</option>
+          <option value="usa">USA</option>
+          <option value="india">INDIA</option>
+          <option value="europe">EUROPE</option>
+        </select>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 bg-neutral-100 rounded-lg p-4 shadow-neutral-300 ">
-        {blogs.map((blog) => (
+        {filteredBlogs.map((blog) => (
           <div key={blog._id} className="bg-white p-4 shadow-md rounded">
-            <h2 className="text-xl font-bold">{blog.title}</h2>
+            {blog.image && (
+              <img
+                src={blog.image}
+                alt={blog.title}
+                className="w-full h-auto mb-2 rounded"
+              />
+            )}
+            <h2 className="text-xl font-bold">{blog.title} | {blog.location}</h2>
             <p>{blog.content.substring(0, 100)}...</p>
             <button 
               className='bg-transparent text-blue-600 hover:text-blue-400 rounded-md p-2'

@@ -9,7 +9,7 @@ const CreateBlog: React.FC = () => {
     image: '',
     subheading: '',
     labels: [],
-    location: ''
+    location: ''.toLowerCase()
   });
   const [errorMessage, setErrorMessage] = useState<string>('');
 
