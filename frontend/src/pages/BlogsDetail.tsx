@@ -39,9 +39,9 @@ const BlogDetails: React.FC = () => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">{blog.title}</h1>
-      <img src={blog.image} alt={blog.title} className="w-full h-auto" />
-      <p>{blog.content}</p>
-      <div className="mt-4 flex gap-4">
+      <img src={blog.image} alt={blog.title} className="w-full h-auto rounded-lg shadow-lg" />
+      <p className='shadow-lg rounded-lg bg-neutral-50 mt-8 p-4'>{blog.content}</p>
+      <div className="mt-8 flex gap-4 rounded-lg bg-neutral-50 p-4">
         <button className='border-2 border-red-500 rounded-md px-4 py-2' onClick={handleDeleteBlog}>
           🗑️ Delete Blog
         </button>
