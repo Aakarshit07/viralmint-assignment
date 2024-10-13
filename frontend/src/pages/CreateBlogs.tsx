@@ -8,7 +8,7 @@ const CreateBlog: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await createBlog(formData); // Create blog using API call
+      const res = await createBlog(formData);
       console.log('Blog created:', res.data);
     } catch (err) {
       console.error('Error creating blog:', err);

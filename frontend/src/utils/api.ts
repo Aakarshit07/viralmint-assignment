@@ -19,7 +19,7 @@ export interface AuthData {
 export interface BlogData {
   title: string;
   content: string;
-  image?: string; // Optional image field
+  image?: string;
 }
 
 // Authentication APIs
