@@ -36,7 +36,7 @@ export const logout = () => {
 
 // Blog APIs
 export const getBlogs = () => api.get('/blogs');
-export const getBlogDetails = (blogId: string) => api.get(`/blogs/:${blogId}`);
+export const getBlogDetails = (blogId: string) => api.get(`/blogs/${blogId}`);
 
 export const createBlog = (blogData: BlogData) => {
   const token = localStorage.getItem('token');
@@ -49,7 +49,7 @@ export const createBlog = (blogData: BlogData) => {
 
 export const updateBlog = (blogId: string, blogData: BlogData) => {
   const token = localStorage.getItem('token');
-  return api.put(`/blogs/:${blogId}`, blogData, {
+  return api.put(`/blogs/${blogId}`, blogData, {
     headers: {
       Authorization: `${token}`,
     },
@@ -58,7 +58,7 @@ export const updateBlog = (blogId: string, blogData: BlogData) => {
 
 export const deleteBlog = (blogId: string) => {
   const token = localStorage.getItem('token');
-  return api.delete(`/blogs/:${blogId}`, {
+  return api.delete(`/blogs/${blogId}`, {
     headers: {
       Authorization: `${token}`,
     },
