@@ -17,6 +17,7 @@ const BlogDetails: React.FC = () => {
   useEffect(() => {
     const fetchBlogDetails = async () => {
       const res = await getBlogDetails(blogId!);
+      console.log(blogId)
       setBlog(res.data);
     };
     fetchBlogDetails();

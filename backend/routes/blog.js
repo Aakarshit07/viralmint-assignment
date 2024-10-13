@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', getBlogs);
 router.get('/:blogId', getBlogById);
 router.post('/', verifyToken, createBlog);
-router.delete('/:blogId', verifyToken, deleteBlog); // Delete blog route
-router.put('/:blogId', verifyToken, updateBlog);    // Edit blog route
+router.delete('/:blogId', verifyToken, deleteBlog); 
+router.put('/:blogId', verifyToken, updateBlog);
 
 module.exports = router;
