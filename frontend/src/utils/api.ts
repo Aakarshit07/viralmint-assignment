@@ -20,6 +20,9 @@ export interface BlogData {
   title: string;
   content: string;
   image?: string;
+  subheading?: string;
+  labels?: string[];
+  location?: string;
 }
 
 // Authentication APIs
@@ -29,4 +32,38 @@ export const signin = (userData: AuthData) => api.post('/auth/signin', userData)
 // Blog APIs
 export const getBlogs = () => api.get('/blogs');
 export const getBlogDetails = (blogId: string) => api.get(`/blogs/${blogId}`);
-export const createBlog = (blogData: BlogData) => api.post('/blogs', blogData);
+
+export const createBlog = (blogData: BlogData) => {
+  const token = localStorage.getItem('token');
+  return api.post('/blogs', blogData, {
+    headers: {
+      Authorization: `${token}`,
+    },
+  });
+};
+
+export const updateBlog = (blogId: string, blogData: BlogData) => {
+  const token = localStorage.getItem('token');
+  return api.put(`/blogs/${blogId}`, blogData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+// Delete a blog
+export const deleteBlog = (blogId: string) => {
+  const token = localStorage.getItem('token');
+  return api.delete(`/blogs/${blogId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+
+// logout 
+export const logout = () => {
+  localStorage.removeItem('token');
+  window.location.href = '/';
+};

@@ -6,6 +6,7 @@ import SignIn from './pages/Signin';
 import ProtectedRoute from './components/PrivateRoute';
 import BlogList from './pages/Blogs';
 import CreateBlog from './pages/CreateBlogs';
+import EditBlog from './pages/EditBlog';
 
 
 const App: React.FC = () => {
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         <Route element={<ProtectedRoute />}>
           <Route path="/blogs" element={<BlogList />} />
           <Route path="/blogs/create" element={<CreateBlog />} />
+          <Route path="/blogs/edit/:blogId" element={<EditBlog />} /> 
         </Route>
       </Routes>
     </Router>

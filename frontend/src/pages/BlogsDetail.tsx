@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getBlogDetails } from '../utils/api';
+import { useParams, useNavigate } from 'react-router-dom';
+import { getBlogDetails, deleteBlog } from '../utils/api'; // Import deleteBlog
 
 interface Blog {
   _id: string;
@@ -12,6 +12,7 @@ interface Blog {
 const BlogDetails: React.FC = () => {
   const { blogId } = useParams<{ blogId: string }>();
   const [blog, setBlog] = useState<Blog | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBlogDetails = async () => {
@@ -23,11 +24,30 @@ const BlogDetails: React.FC = () => {
 
   if (!blog) return <p>Loading...</p>;
 
+  const handleDeleteBlog = async () => {
+    if (window.confirm('Are you sure you want to delete this blog?')) {
+      await deleteBlog(blog._id);
+      navigate('/');
+    }
+  };
+
+  const handleEditBlog = () => {
+    navigate(`/blogs/edit/${blog._id}`);
+  };
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">{blog.title}</h1>
       <img src={blog.image} alt={blog.title} className="w-full h-auto" />
       <p>{blog.content}</p>
+      <div className="mt-4 flex gap-4">
+        <button className='border-2 border-red-500 rounded-md px-4 py-2' onClick={handleDeleteBlog}>
+          🗑️ Delete Blog
+        </button>
+        <button className='border-2 border-blue-500 rounded-md px-4 py-2' onClick={handleEditBlog}>
+          ✏️ Edit Blog
+        </button>
+      </div>
     </div>
   );
 };
