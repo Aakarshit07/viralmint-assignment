@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getBlogs, logout } from '../utils/api';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface Blog {
   _id: string;
@@ -15,6 +15,7 @@ const BlogList: React.FC = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       const res = await getBlogs();
+      console.log(res)
       setBlogs(res.data);
     };
     fetchBlogs();
@@ -27,6 +28,10 @@ const BlogList: React.FC = () => {
   const handleLogout = () => {
     logout();
   };
+
+  const handleBlogDetails  = (id: string) => {
+    navigate(`/blogs/${id}`)
+  }
 
   return (
     <div className="container mx-auto p-4">
@@ -51,7 +56,11 @@ const BlogList: React.FC = () => {
           <div key={blog._id} className="bg-white p-4 shadow-md rounded">
             <h2 className="text-xl font-bold">{blog.title}</h2>
             <p>{blog.content.substring(0, 100)}...</p>
-            <Link to={`/blogs/${blog._id}`} className="text-blue-500">Read More</Link>
+            <button 
+              className='bg-transparent text-blue-600 hover:text-blue-400 rounded-md p-2'
+              onClick={() => handleBlogDetails(blog._id)}>
+              Read More
+            </button>
           </div>
         ))}
       </div>

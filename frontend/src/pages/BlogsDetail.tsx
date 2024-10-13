@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getBlogDetails, deleteBlog } from '../utils/api'; // Import deleteBlog
+import { getBlogDetails, deleteBlog } from '../utils/api';
 
 interface Blog {
   _id: string;
@@ -28,7 +28,7 @@ const BlogDetails: React.FC = () => {
   const handleDeleteBlog = async () => {
     if (window.confirm('Are you sure you want to delete this blog?')) {
       await deleteBlog(blog._id);
-      navigate('/');
+      navigate('/blogs');
     }
   };
 
